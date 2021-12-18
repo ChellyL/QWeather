@@ -5,7 +5,7 @@ import requests
 
 date = str(datetime.datetime.now())[:4] + str(datetime.datetime.now())[5:7] + str(datetime.datetime.now())[8:10]
 key = '' # 你自己的api，建议申请个人开发者，否则无法获取逐时天气预报
-place = '101270411' #你所在城市的代码，查看api文档获取，或者打开和风天气你所在地的天气首页，拼音后的一串数字就是城市代码
+place = '' #你所在城市的代码，查看api文档获取，或者打开和风天气你所在地的天气首页，拼音后的一串数字就是城市代码
 
 location = 'https://geoapi.qweather.com/v2/city/lookup?key=' + key + '&location=' + place
 now = 'https://devapi.qweather.com/v7/weather/now?key=' + key + '&location=' + place
@@ -99,7 +99,7 @@ def air_index():
 def now_warning():
     warn = requests.get(warning).json()
     if len(warn['warning']) == 0:
-        warn_msg = '无事发生！'
+        warn_msg = '无事发生！请继续努力发财！记得喝水提肛！'
     else:
         title = warn['warning'][0]['title']
         text = warn['warning'][0]['text']
