@@ -10,4 +10,4 @@ userid = '' # 个人id
 
 def tgme(words):
     bot = telegram.Bot(token)
-    bot.sendMessage(chat_id=userid, text=words)
+    bot.sendMessage(chat_id=userid, text=words, parse_mode=telegram.ParseMode.HTML)
