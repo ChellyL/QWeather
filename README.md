@@ -10,3 +10,16 @@
 如果vps运行报错，建议把emoji去掉换普通字符
 
 需要安装 sxtwl 和 python-telegram-bot 其他模块都是python自带的
+
+----------------
+
+一些效果图……我不会排版感觉有点丑……
+
+当日预报
+
+![Snipaste_2021-12-19_12-26-50](https://user-images.githubusercontent.com/38887991/146663854-72e52155-8b87-4045-be0c-0f230955b79e.png)
+
+
+实时天气
+
+![Snipaste_2021-12-19_12-27-06](https://user-images.githubusercontent.com/38887991/146663898-36e23830-26f3-435d-bbe2-a7afb84fb3fd.png)
