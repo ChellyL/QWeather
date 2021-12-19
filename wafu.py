@@ -4,8 +4,8 @@ import sxtwl
 import requests
 
 date = str(datetime.datetime.now())[:4] + str(datetime.datetime.now())[5:7] + str(datetime.datetime.now())[8:10]
-key = '' # 你自己的api，建议申请个人开发者，否则无法获取逐时天气预报
-place = '' #你所在城市的代码，查看api文档获取，或者打开和风天气你所在地的天气首页，拼音后的一串数字就是城市代码
+key = '' # 和风天气api，建议申请个人开发者，否则无法获取逐时天气预报
+place = '' # 所在城市的代码，查看api文档获取，或者打开和风天气你所在地的天气首页，拼音后的一串数字就是城市代码
 
 location = 'https://geoapi.qweather.com/v2/city/lookup?key=' + key + '&location=' + place
 now = 'https://devapi.qweather.com/v7/weather/now?key=' + key + '&location=' + place
@@ -45,7 +45,7 @@ def locate():
     where = '📍 ' + adm + ' ' + name
     return where
 
-# 获取今天天气
+# 获取今天天气 可结合lunar_td(day)显示农历信息
 def today_wt():
     today = requests.get(days).json()
     td_date = today['daily'][0]['fxDate']
@@ -61,9 +61,12 @@ def today_wt():
     td_wind = today['daily'][0]['windDirDay']
     td_winds = today['daily'][0]['windScaleDay']
     td_uv = today['daily'][0]['uvIndex']
-    td = '今天是 ' + td_date + '\n' + lunar_td(
-        lunar) + '\n\n白天' + td_day + ' 夜间' + td_night + ' ' + td_max + '°~' + td_min + '° ' + '紫外线' + td_uv + '级 ' + td_wind + td_winds + '级\n' + '😎' + td_sunrise + '~' + td_sunset + ' ' + \
+    td = '今天是 ' + td_date + '\n白天' + td_day + ' 夜间' + td_night + ' ' + td_max + '°~' + td_min + '° ' + '紫外线' + td_uv + '级 ' + td_wind + td_winds + '级\n' + '😎' + td_sunrise + '~' + td_sunset + ' ' + \
          moon[td_moon] + td_moonrise + '~' + td_moonset
+
+    # 配合lunar_td(day)显示当日农历信息
+    # td = '今天是 ' + td_date + '\n' + lunar_td(lunar) + '\n\n白天' + td_day + ' 夜间' + td_night + ' ' + td_max + '°~' + td_min + '° ' + '紫外线' + td_uv + '级 ' + td_wind + td_winds + '级\n' + '😎' + td_sunrise + '~' + td_sunset + ' ' + \
+    #     moon[td_moon] + td_moonrise + '~' + td_moonset
     return td
 
 # 获取明天天气
