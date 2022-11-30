@@ -23,8 +23,8 @@ numCn = ["零", "一", "二", "三", "四", "五", "六", "七", "八", "九", "
 jqmc = ["冬至", "小寒", "大寒", "立春", "雨水", "惊蛰", "春分", "清明", "谷雨", "立夏",
         "小满", "芒种", "夏至", "小暑", "大暑", "立秋", "处暑", "白露", "秋分", "寒露", "霜降",
         "立冬", "小雪", "大雪"]
-ymc = ["十一", "十二", "正", "二", "三", "四", "五", "六", "七", "八", "九", "十"]
-rmc = ["初一", "初二", "初三", "初四", "初五", "初六", "初七", "初八", "初九", "初十",
+ymc = ["", "正", "二", "三", "四", "五", "六", "七", "八", "九", "十", "冬", "腊"]
+rmc = ["", "初一", "初二", "初三", "初四", "初五", "初六", "初七", "初八", "初九", "初十",
        "十一", "十二", "十三", "十四", "十五", "十六", "十七", "十八", "十九", "二十",
        "廿一", "廿二", "廿三", "廿四", "廿五", "廿六", "廿七", "廿八", "廿九", "三十", "卅一"]
 XiZ = ['摩羯', '水瓶', '双鱼', '白羊', '金牛', '双子', '巨蟹', '狮子', '处女', '天秤', '天蝎', '射手']
@@ -44,8 +44,28 @@ def locate():
     adm = city['location'][0]['adm2']
     where = '📍 ' + adm + ' ' + name
     return where
+    
+# 获取当天农历信息
+def lunar_td(day):
+    yTG = day.getYearGZ(True)
+    week = WeekCn[day.getWeek()]
+    star = XiZ[day.getConstellation()]
+    ganzhi = Gan[yTG.tg] + Zhi[yTG.dz]
+    #  lunardate = "%s%d月%d日" % ('闰' if day.isLunarLeap() else '', day.getLunarMonth(), day.getLunarDay())
+    if day.isLunarLeap():
+        lunardate = '闰' + ymc[day.getLunarMonth()] + '月' + rmc[day.getLunarDay()]
+    else:
+        lunardate = ymc[day.getLunarMonth()] + '月' + rmc[day.getLunarDay()]
+    shengxiao = ShX[yTG.dz]
+    if day.hasJieQi():
+        jd = day.getJieQiJD()
+        t = sxtwl.JD2DD(jd)
+        return (week + ' ' + star + '座 ' + ganzhi + '(' + shengxiao + ')年 ' + lunardate + ' ' + '%s' % jqmc[
+            day.getJieQi()] + '' + "(%d-%d-%d %d:%d:%d)" % (t.Y, t.M, t.D, t.h, t.m, round(t.s)))
+    else:
+        return week + ' ' + star + '座 ' + ganzhi + '(' + shengxiao + ')年 ' + lunardate
 
-# 获取今天天气 可结合lunar_td(day)显示农历信息
+# 获取今天天气
 def today_wt():
     today = requests.get(days).json()
     td_date = today['daily'][0]['fxDate']
@@ -63,10 +83,7 @@ def today_wt():
     td_uv = today['daily'][0]['uvIndex']
     td = '今天是 ' + td_date + '\n白天' + td_day + ' 夜间' + td_night + ' ' + td_max + '°~' + td_min + '° ' + '紫外线' + td_uv + '级 ' + td_wind + td_winds + '级\n' + '😎' + td_sunrise + '~' + td_sunset + ' ' + \
          moon[td_moon] + td_moonrise + '~' + td_moonset
-
-    # 配合lunar_td(day)显示当日农历信息
-    # td = '今天是 ' + td_date + '\n' + lunar_td(lunar) + '\n\n白天' + td_day + ' 夜间' + td_night + ' ' + td_max + '°~' + td_min + '° ' + '紫外线' + td_uv + '级 ' + td_wind + td_winds + '级\n' + '😎' + td_sunrise + '~' + td_sunset + ' ' + \
-    #     moon[td_moon] + td_moonrise + '~' + td_moonset
+         
     return td
 
 # 获取明天天气
@@ -153,21 +170,6 @@ def life_index():
     life_id = living
     return life_id
 
-# 获取当天农历信息
-def lunar_td(day):
-    yTG = day.getYearGZ(True)
-    week = WeekCn[day.getWeek()]
-    star = XiZ[day.getConstellation()]
-    ganzhi = Gan[yTG.tg] + Zhi[yTG.dz]
-    lunar = "%s%d月%d日" % ('闰' if day.isLunarLeap() else '', day.getLunarMonth(), day.getLunarDay())
-    shengxiao = ShX[yTG.dz]
-    if day.hasJieQi():
-        jd = day.getJieQiJD()
-        t = sxtwl.JD2DD(jd)
-        return (week + ' ' + star + ' ' + ganzhi + '(' + shengxiao + ')年 ' + lunar + ' ' + '%s' % jqmc[
-            day.getJieQi()] + '' + "(%d-%d-%d %d:%d:%d)" % (t.Y, t.M, t.D, t.h, t.m, round(t.s)))
-    else:
-        return week + ' ' + star + ' ' + ganzhi + '(' + shengxiao + ')年 ' + lunar
 
 # 获取一言（Hitokoto）
 def ichiba():
