@@ -3,15 +3,19 @@
 
 利用和风天气的api（建议用专业开发者的，否则无法获取逐时天气）获取天气信息+一言+推送到自己的tg频道
 
-根据wafu.py的可获取信息，选择内容生成天气信息，然后推送到tg频道就行
+qw_day 和 qw_hour 两个文件按注释填好即可推送到tg
 
-具体看wafu.py的注释和和风天气的开发文档
+wafu 是可以import到其他文件内，按自己需求组合信息或者推送到其他平台
+
+具体请看文件内部的注释和和风天气的开发文档
 
 如果vps运行报错，建议把emoji去掉换普通字符
 
 需要安装 sxtwl 和 python-telegram-bot 其他模块都是python自带的
 
 ```pip install sxtwl```
+
+
 ```pip install python-telegram-bot```
 
 ----------------
