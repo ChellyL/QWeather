@@ -11,6 +11,9 @@
 
 需要安装 sxtwl 和 python-telegram-bot 其他模块都是python自带的
 
+```pip install sxtwl```
+```pip install python-telegram-bot```
+
 ----------------
 
 一些效果图……我不会排版感觉有点丑……
