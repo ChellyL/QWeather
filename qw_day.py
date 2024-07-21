@@ -28,7 +28,7 @@ air = 'https://devapi.qweather.com/v7/air/now?key=' + key + '&location=' + place
 sun = 'https://devapi.qweather.com/v7/astronomy/sun?key=' + key + '&location=' + place + '&date=' + date
 hour = 'https://devapi.qweather.com/v7/weather/24h?key=' + key + '&location=' + place
 days = 'https://devapi.qweather.com/v7/weather/3d?key=' + key + '&location=' + place
-htkt = 'https://international.v1.hitokoto.cn/'
+htkt = 'https://international.v1.hitokoto.cn/?c=a&c=b&c=c&c=d&c=h&c=i&c=k'
 
 Gan = ["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"]
 Zhi = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"]
