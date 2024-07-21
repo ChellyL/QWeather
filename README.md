@@ -16,7 +16,7 @@ wafu 是可以import到其他文件内，按自己需求组合信息或者推送
 ```pip install sxtwl```
 
 
-```pip install python-telegram-bot```
+```pip install python-telegram-bot==13.7```
 
 ----------------
 
