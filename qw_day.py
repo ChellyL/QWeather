@@ -64,6 +64,7 @@ def lunar_td(day):
     yTG = day.getYearGZ(True)
     week = WeekCn[day.getWeek()]
     star = XiZ[day.getConstellation()]
+    dTG = day.getDayGZ()
     ganzhi = Gan[yTG.tg] + Zhi[yTG.dz]
     #  lunardate = "%s%d月%d日" % ('闰' if day.isLunarLeap() else '', day.getLunarMonth(), day.getLunarDay())
     if day.isLunarLeap():
@@ -74,10 +75,10 @@ def lunar_td(day):
     if day.hasJieQi():
         jd = day.getJieQiJD()
         t = sxtwl.JD2DD(jd)
-        return (week + ' ' + star + '座 ' + ganzhi + '(' + shengxiao + ')年 ' + lunardate + ' ' + '%s' % jqmc[
+        return (week + ' ' + star + '座 ' + '\n' + ganzhi + '(' + shengxiao + ')年 ' + lunardate + '(' + Gan[dTG.tg] + Zhi[dTG.dz] + ') ' + '%s' % jqmc[
             day.getJieQi()] + '' + "(%d-%d-%d %d:%d:%d)" % (t.Y, t.M, t.D, t.h, t.m, round(t.s)))
     else:
-        return week + ' ' + star + '座 ' + ganzhi + '(' + shengxiao + ')年 ' + lunardate
+        return week + ' ' + star + '座 ' + '\n' + ganzhi + '(' + shengxiao + ')年 ' + lunardate + '(' + Gan[dTG.tg] + Zhi[dTG.dz] + ') '
 
 # 今日天气
 def today_wt():
@@ -151,7 +152,7 @@ def ichiba():
 # os.environ['https_proxy'] = 'https://127.0.0.1:7890'
 
 # 推送样式
-daily = locate() + '\n🛰️ 每日播报\n\n' + '今天是 ' + today['daily'][0]['fxDate'] + '\n' + lunar_td(
+daily = locate() + '\n🛰️ 每日播报\n\n' + '今天是 ' + today['daily'][0]['fxDate'] + ' ' + lunar_td(
     lunar) + '\n\n' + today_wt() + '\n' + life_index() + '\n\n' + tomorrow_wt() + '\n\n' + ichiba() + '\n\n' + '<a href="' + wt_link() + '">info</a>'
 
 bot = telegram.Bot(token)
